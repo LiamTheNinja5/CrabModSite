@@ -7,8 +7,8 @@ const logger = require('morgan');
 const Router = require('./Router');
 const Logger = require('../util/Logger');
 const crypto = require("crypto");
-const Calls = require('../database/functions')
 const cron = require('../util/cron');
+cron.setCron();
 const {
     default: axios
 } = require('axios');
@@ -94,7 +94,7 @@ class App {
             res.render('home/metrics.ejs', {
                 path: req.path,
                 user: req.user
-            })        
+            })
         })
 
         this.app.get('/discord', async function (req, res) {
@@ -111,7 +111,6 @@ class App {
                         'Authorization': `Basic ${process.env.GITHUB_SECRET}`
                     }
                 }).then(releases => {
-                    console.log(releases.data)
                     res.render('home/downloads.ejs', {
                         path: req.path,
                         user: req.user,

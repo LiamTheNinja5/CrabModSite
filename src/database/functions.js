@@ -1,6 +1,3 @@
-const { v4: uuidv4 } = require('uuid');
-const generateApiKey = require('../util/APIKey')
-
 const monk = require('monk');
 const db = monk(process.env.MONGO_URL);
 
@@ -36,10 +33,8 @@ class Calls {
         const collection = db.get('users')
         let user = await collection.findOne({ steamid: body.steamid })
         if (user === null) {
-            console.log("Inserting")
             return (await Calls.insertUser(body))
         } else {
-            console.log("Getting")
             return (await Calls.getUserByID(body.steamid));
         }
     }
@@ -68,8 +63,30 @@ class Calls {
         const collection = db.get('realtime')
         return (await collection.insert({        
             steamid,
+            status: 0,
             insert_time: parseInt(Date.now() / 1000),
+            latest_update: parseInt(Date.now() / 1000),
         }));
+    }
+
+    static async updateRealtime(id, props, value) {
+        const collection = db.get('realtime')
+        return (await collection.findOneAndUpdate({steamid: id}, { $set: { [props]: value }}))
+    }
+
+    static async getAllRealtimeStatus(status) {
+        const collection = db.get('realtime')
+        return (await collection.find({ status: status }));
+    }
+
+    static async getRealtime(steamid) {
+        const collection = db.get('realtime')
+        return (await collection.findOne({ steamid: steamid }));
+    }
+
+    static async getAllRealtime() {
+        const collection = db.get('realtime')
+        return (await collection.find());
     }
 
     static async removeRealtime(steamid) {

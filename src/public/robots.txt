@@ -4,4 +4,4 @@ Disallow: /nogooglebot/
 User-agent: *
 Allow: /
 
-Sitemap: https://fiveanalytics.xyz/sitemap.xml
+Sitemap: https://crabmod.com/sitemap.xml

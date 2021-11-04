@@ -18,7 +18,7 @@
     <meta name="twitter:creator" content="@CrabGame Cheat">
 </head>
 <%- include('../../Components/HomeNavbar', { user }) %>
-<title>CrabGame Cheat | Metrics</title>
+<title>CrabMod | Metrics</title>
 <script src="https://cdn.jsdelivr.net/npm/kute.js@2.1.2/dist/kute.min.js"></script>
 <link rel="stylesheet" href="/public/css/fontawesome-min.css" />
 <link rel="stylesheet" href="/public/css/home.css" />
@@ -26,15 +26,12 @@
 
 <body>
   <section class="blue flex-column new-style">
-
-<div style="display: flex; align-items: center;">
-  <div style="z-index: 100;" style="text-align: center;">
-      <h1 class="title-upper" style="text-align: center;">Metrics</h1>
-      <p class="mt-1">Statistics and player information</p>
-  </div>
-</div>
-
-
+    <div style="display: flex; align-items: center;">
+      <div style="z-index: 100;" style="text-align: center;">
+          <h1 class="title-upper" style="text-align: center;">Metrics</h1>
+          <p class="mt-1">Statistics and player information</p>
+      </div>
+    </div>
   </section>
   
   <div class="spacer layer2 flip" style="z-index: 999 !important;"></div>
@@ -55,14 +52,13 @@
                 </div>
                 <div class="background-2 m-1">
                     <h4>Players in Games</h4>
-                    <p id="lobby-player-count">...</p>
+                    <p id="realtime-player-count-lobbys">...</p>
                 </div>
             </div>
         </div>
     </div>
     
   </section>
-
 
   <div class="spacer layer2" style="z-index: 999 !important;"></div>
   <%- include('../../Components/Footer') %>
@@ -104,6 +100,7 @@
           timeout: 10000,
           success: function (data) {
             $("#realtime-player-count").text(`${data.players_online}`);
+            $("#realtime-player-count-lobbys").text(`${data.players_in_lobby}`);
           },
           error: function (jqXHR, textStatus, errorThrown) {
           }

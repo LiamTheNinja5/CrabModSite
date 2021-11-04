@@ -9,10 +9,12 @@ class API extends Router {
     }
 
     createRoute() {
-        this.router.get('/live', (req, res) => {
+        this.router.get('/live', async (req, res) => {
+            let realtime_users = await Calls.getAllRealtime();
+            let realtime_users_in_lobbys = await Calls.getAllRealtimeStatus(1);
             res.status(200).json({
-                players_online: 42,
-                players_in_lobby: 31,
+                players_online: realtime_users.length,
+                players_in_lobby: realtime_users_in_lobbys.length,
             })
         })
         
@@ -23,26 +25,6 @@ class API extends Router {
             })
         })
 
-        this.router.get('/bans', (req, res) => {
-            res.status(200).json({
-                players_online: 42,
-                players_in_lobby: 31,
-            })
-        })
-        async function user() {
-            await axios.get('https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/?key=A7A35E400E53A38E6150D2A9FD1F0732&format=json&steamids=76561198036370701', {
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                }
-            }).then(async response => {
-                await Calls.getUser(response.data.response.players[0])
-            }).catch(error => {
-                console.log(error)
-            })
-        }
-        user()
-        
         return this.router;
     }
 }
