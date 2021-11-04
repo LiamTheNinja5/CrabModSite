@@ -21,7 +21,6 @@ class App {
     constructor() {
         this.app = express();
         this.server = require('http').createServer(this.app);
-        this.io = require('socket.io')(this.server)
         this.app.engine('e', require('ejs').renderFile);
         this.app.set('view engine', 'ejs');
         this.app.set('views', path.join(__dirname, '..', 'views/pages'));
@@ -41,14 +40,6 @@ class App {
             extended: true
         }));
         this.app.use('/public', express.static(path.join(__dirname, '..', 'public')));
-
-        this.wsApp = express();
-        this.wsServer = require('http').createServer(this.wsApp);
-        this.wsSocket = require('socket.io')(this.wsServer, {
-            cors: {
-                origin: '*',
-            }
-        });
     }
     /**
      * 
