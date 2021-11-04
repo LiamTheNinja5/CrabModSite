@@ -1,0 +1,67 @@
+
+    <link rel="stylesheet" href="/public/css/fontawesome-min.css" />
+    <script src="https://kit.fontawesome.com/4c42749b38.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
+    <nav class="navbar navbar-dark top-nav">
+        <div class="container-fluid justify-content-center">
+              <div id="nav_overlay" class="align-items-center justify-content-center flex-column">
+                <a href="/" class="nav-item-h d-flex align-items-center my-2"><button class="btn">Home</button></a>
+                <a class="nav-item-h d-flex align-items-center my-2" href="/servers"><button class="btn">My Servers</button></a>
+                <% if (user) { %>
+                    <a class="nav-item-h d-flex align-items-center my-2 mt-5" href="/my-account"><button class="btn">My Account</button></a>
+                    <a class="nav-item-h d-flex align-items-center my-2" href="/oauth/logout"><button class="btn">Logout</button></a>
+                <% } else { %>
+                    <a class="nav-item-h-login d-flex align-items-center my-2 mt-5" href="/oauth/login"><button class="btn" style="text-decoration: underline">Login</button></a>
+                <% } %>
+            </div>
+              
+            <div class="loader-wrapper" style="display: none;"><div class="loader"></div></div>
+            <div id="nav_links" class="col-7 d-none d-block" style="text-align: left;">
+              <a href="/"><button style="margin-top: 10px; margin-bottom: 10px;"class="btn">Home</button></a>
+              <a href="/servers"><button style="margin-top: 10px; margin-bottom: 10px;"class="btn">My Servers</button></a>
+
+            </div>
+            <% if (user) { %>
+              <div class="dropdown">
+                  <img class="navbar-avatar" src="https://cdn.discordapp.com/avatars/<%= user.id %>/<%= user.avatar %>">
+                  <a class="dropdown-toggle white" id="navbarDropdownMenuLink" role="button"
+                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <%= user.username %>#<%= user.discriminator %>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-right" style="margin-top: 10px;" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" href="/my-account"><i class="fas fa-user-circle"></i> My Account</a>
+                    <a class="dropdown-item" href="/servers"><i class="fas fa-server"></i> My Servers</a>
+                    <div class="dropdown-divider"></div> 
+                      <a class="dropdown-item" href="/oauth/logout">Logout</a>
+                  </div>
+                </div>  
+            <% } else { %>
+              <div class="dropdown">
+                <a class="morenav btn btn-outline-primary" id="editor-btn" href="/oauth/login" style="text-align: right;">Login</a>
+              </div>
+            <% } %>
+            <div id="hamburger"><div></div></div>
+        </div>
+        <script>
+          const hamburger = document.getElementById("hamburger");
+          const menu = document.getElementById("nav_overlay");
+          let open = false;
+          
+          const change = () => {
+              if (!open) {
+              hamburger.classList.add("open");
+              menu.classList.add("d-flex");
+              document.body.classList.add("no-scroll");
+              } else {
+              hamburger.classList.remove("open");
+              menu.classList.remove("d-flex");
+              document.body.classList.remove("no-scroll");
+              }
+              open = !open;
+          };
+          
+          hamburger.addEventListener("click", change);
+          
+          </script>
+    </nav>

@@ -1,0 +1,16 @@
+<a href="<%= release.html_url %>">
+    <div class="background-2 releases-flex p-4" style="display: flex;">
+        <div class="releases-flex">
+            <h3><%= release.name %></h3>
+            <h4><span class="badge badge-primary"><%= release.tag_name %></span></h4>
+            <% if (release.prerelease) { %>
+                <span class="badge badge-danger text-uppercase">Pre-release</span>
+            <% } %>
+        </div>
+        <span class="mt-3 mb-0 p-0"><i class="fab fa-github"></i> Download via GitHub</span>
+        <div class="releases-downloads">
+            <a href="<%=release.tarball_url%>" class="btn btn-outline-light"><i class="fas fa-file-archive mr-1"></i> Zip</a>
+            <a href="<%=release.zipball_url%>" class="ml-1 btn btn-outline-light"><i class="far fa-file-archive mr-1"></i> Tar.gz</a>
+        </div>
+    </div>
+</a>

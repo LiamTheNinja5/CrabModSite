@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="robots" content="all" />
+  <meta property="og:locale" content="en_US">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta property="og:title" content="CrabGame Cheat" />
+  <meta property="og:site_name" content="CrabGame Cheat" />
+  <meta property="og:image" height="64px" content="/public/img/icon.png">
+  <meta property="og:description" content="A working, free & undetectable mod for CrabGame. ESP, Godmode, Fly & more.">
+  <meta property="og:type" content="website" />
+  <meta name="description" content="A working, free & undetectable mod for CrabGame. ESP, Godmode, Fly & more.">
+  <meta name="keywords" content="CrabGame, SquidGame, CrabMod">
+  <meta name="author" content="CrabGame Cheat">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@CrabGame Cheat">
+  <meta name="twitter:creator" content="@CrabGame Cheat">
+</head>
+<%- include('../../Components/HomeNavbar', { user }) %>
+<title>CrabGame Cheat</title>
+<script src="https://cdn.jsdelivr.net/npm/kute.js@2.1.2/dist/kute.min.js"></script>
+<link rel="stylesheet" href="/public/css/fontawesome-min.css" />
+<link rel="stylesheet" href="/public/css/home.css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<body>
+  <img class="circles" src='/public/img/circles-outline.svg'>
+  <section class="blue flex-column">
+    <div style="display: flex; align-items: center;">
+      <div style="z-index: 100;" class="lim-wid">
+        <h1 class="title-upper">CrabGame Cheat</h1>
+        <p class="title-lower">A Free undetectable mod for CrabGame. ESP, Godmode, Fly, SuperSlap, NoClip & loads more. Join the other <span id="unique-player-count">...</span> unique players!</p>
+        <a href="/downloads" class="btn btn-outline-light hero-button">Downloads <i
+            class="fas fa-chevron-right"></i></a>
+      </div>
+      <img class="animated data-guy hide-on-small" src="../public/img/gaming-guy.svg">
+    </div>
+    <div style="text-align: center; z-index: 10;" class="background-3">
+      <h3>
+        <div class="tooltip-toggle" style="display: flex; align-items: center;" aria-label="Connected to socket!">
+          <div class="blob green"></div> <a id="realtime-player-count" style="text-decoration: none;" href="/metrics">Connecting..</a>
+      </h3></span>
+    </div>
+    <span style="text-align: center; position: relative; margin-top: -105px; display: none;">
+      <i class="fas fa-chevron-down" style="font-size: 2rem; animation: MoveUpDown 5s linear infinite;"></i>
+    </span>
+
+  </section>
+
+  <div class="spacer layer2 flip" style="z-index: 999 !important;"></div>
+
+  <section class="purple image-align" id="1st">
+    <div class="blob-content lim-wid">
+      <h1 class="title-upper">Title</h1>
+      <p class="title-lower">Description of this whole area, explain the mod, etc. Blah blah blah.</p>
+      <a href="/pricing" class="btn btn-outline-light hero-button ml-4">CTA Button <i class="fas fa-chevron-right"
+          aria-hidden="true"></i></a>
+    </div>
+    <img class="red-guy hide-on-small" src="../public/img/world.svg">
+
+  </section>
+  <div class="spacer layer2" style="z-index: 999 !important;"></div>
+  <%- include('../../Components/Footer') %>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <script>
+    (() => {
+      const hamburger = document.getElementById("hamburger");
+      const menu = document.getElementById("nav_overlay");
+      let open = false;
+
+      const change = () => {
+        if (!open) {
+          hamburger.classList.add("open");
+          menu.classList.add("d-flex");
+          document.body.classList.add("no-scroll");
+        } else {
+          hamburger.classList.remove("open");
+          menu.classList.remove("d-flex");
+          document.body.classList.remove("no-scroll");
+        }
+        open = !open;
+      };
+
+      hamburger.addEventListener("click", change);
+
+      function getLiveData() {
+        $.ajax({
+          url: "/api/v1/live",
+          method: "GET",
+          dataType: "json",
+          crossDomain: true,
+          contentType: "application/json; charset=utf-8",
+          cache: true,
+          timeout: 10000,
+          success: function (data) {
+            $("#realtime-player-count").text(`${data.players_online} players cheating!`);
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+            $("#realtime-player-count").text(`Disconnected..`);
+          }
+        });
+      }
+      getLiveData()
+      function getOneTime() {
+        $.ajax({
+          url: "/api/v1/total_users_count",
+          method: "GET",
+          dataType: "json",
+          crossDomain: true,
+          contentType: "application/json; charset=utf-8",
+          cache: true,
+          timeout: 10000,
+          success: function (data) {
+            $("#unique-player-count").html(`<b>${data.number}</b>`);
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+            $("#unique-player-count").html(`<b>...</b>`);
+          }
+        });
+      }
+      getOneTime()
+      setInterval(getLiveData, 5000);
+    })();
+  </script>
+
+</body>
+
+</html>

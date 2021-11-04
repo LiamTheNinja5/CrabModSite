@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="robots" content="all" />
+    <meta property="og:locale" content="en_US">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="og:title" content="CrabGame Cheat" />
+    <meta property="og:site_name" content="CrabGame Cheat" />
+    <meta property="og:image" height="64px" content="/public/img/icon.png">
+    <meta property="og:description" content="A working, free & undetectable mod for CrabGame. ESP, Godmode, Fly & more.">
+    <meta property="og:type" content="website" />
+    <meta name="description" content="A working, free & undetectable mod for CrabGame. ESP, Godmode, Fly & more.">
+    <meta name="keywords" content="CrabGame, SquidGame, CrabMod">
+    <meta name="author" content="CrabGame Cheat">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@CrabGame Cheat">
+    <meta name="twitter:creator" content="@CrabGame Cheat">
+</head>
+<%- include('../../Components/HomeNavbar', { user }) %>
+<title>CrabGame Cheat | Downloads</title>
+<script src="https://cdn.jsdelivr.net/npm/kute.js@2.1.2/dist/kute.min.js"></script>
+<link rel="stylesheet" href="/public/css/fontawesome-min.css" />
+<link rel="stylesheet" href="/public/css/home.css" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<body>
+  <section class="blue flex-column new-style">
+
+<div style="display: flex; align-items: center;">
+  <div style="z-index: 100;" style="text-align: center;">
+      <h1 class="title-upper" style="text-align: center;">Downloads</h1>
+      <p class="mt-1">View the latest releases from GitHub.</p>
+  </div>
+</div>
+
+
+  </section>
+  
+  <div class="spacer layer2 flip" style="z-index: 999 !important;"></div>
+
+  <section class="purple image-align" id="1st">
+    <div class="blob-content lim-wid">
+        <h3>Latest Version</h3>
+        <%- include('../../Components/ReleaseLatestCard', { release: releases[0] }) %>
+        <br>
+        <h3>Older Versions</h3>
+        <%- include('../../Components/ReleaseLatestCard', { release: releases[1] }) %>
+        <br>
+        <%- include('../../Components/ReleaseLatestCard', { release: releases[2] }) %>
+        <br>
+        <%- include('../../Components/ReleaseLatestCard', { release: releases[3] }) %>
+        <br>
+        <p>View all releases on <a href="https://github.com/DasJNNJ/CrabGame-Cheat/releases">GitHub</a></p>
+    </div>
+  </section>
+
+
+  <div class="spacer layer2" style="z-index: 999 !important;"></div>
+  <%- include('../../Components/Footer') %>
+
+  <script>
+    (() => {
+    const hamburger = document.getElementById("hamburger");
+    const menu = document.getElementById("nav_overlay");
+    let open = false;
+
+    const change = () => {
+      if (!open) {
+        hamburger.classList.add("open");
+        menu.classList.add("d-flex");
+        document.body.classList.add("no-scroll");
+      } else {
+        hamburger.classList.remove("open");
+        menu.classList.remove("d-flex");
+        document.body.classList.remove("no-scroll");
+      }
+      open = !open;
+    };
+
+    hamburger.addEventListener("click", change);
+  })();
+
+  </script>
+
+</body>
+</html>
