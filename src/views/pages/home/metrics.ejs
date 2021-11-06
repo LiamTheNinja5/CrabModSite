@@ -1,22 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="robots" content="all" />
-    <meta property="og:locale" content="en_US">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta property="og:title" content="CrabGame Cheat" />
-    <meta property="og:site_name" content="CrabGame Cheat" />
-    <meta property="og:image" height="64px" content="/public/img/icon.png">
-    <meta property="og:description" content="A working, free & undetectable mod for CrabGame. ESP, Godmode, Fly & more.">
-    <meta property="og:type" content="website" />
-    <meta name="description" content="A working, free & undetectable mod for CrabGame. ESP, Godmode, Fly & more.">
-    <meta name="keywords" content="CrabGame, SquidGame, CrabMod">
-    <meta name="author" content="CrabGame Cheat">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content="@CrabGame Cheat">
-    <meta name="twitter:creator" content="@CrabGame Cheat">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="robots" content="all" />
+  <meta property="og:locale" content="en_US">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta property="og:title" content="CrabGame Cheat" />
+  <meta property="og:site_name" content="CrabGame Cheat" />
+  <meta property="og:image" height="64px" content="/public/img/icon.png">
+  <meta property="og:description" content="A working, free & undetectable mod for CrabGame. ESP, Godmode, Fly & more.">
+  <meta property="og:type" content="website" />
+  <meta name="description" content="A working, free & undetectable mod for CrabGame. ESP, Godmode, Fly & more.">
+  <meta name="keywords" content="CrabGame, SquidGame, CrabMod">
+  <meta name="author" content="CrabGame Cheat">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@CrabGame Cheat">
+  <meta name="twitter:creator" content="@CrabGame Cheat">
 </head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+
 <%- include('../../Components/HomeNavbar', { user }) %>
 <title>CrabMod | Metrics</title>
 <script src="https://cdn.jsdelivr.net/npm/kute.js@2.1.2/dist/kute.min.js"></script>
@@ -28,36 +31,56 @@
   <section class="blue flex-column new-style">
     <div style="display: flex; align-items: center;">
       <div style="z-index: 100;" style="text-align: center;">
-          <h1 class="title-upper" style="text-align: center;">Metrics</h1>
-          <p class="mt-1">Statistics and player information</p>
+        <h1 class="title-upper" style="text-align: center;">Metrics</h1>
+        <p class="mt-1">Statistics and player information</p>
       </div>
     </div>
   </section>
-  
+
   <div class="spacer layer2 flip" style="z-index: 999 !important;"></div>
 
   <section class="purple image-align" id="1st">
-    <div style="display: flex; text-align: center; height: 250px; align-items: center;justify-content: center;flex-direction: column;">
-        <div>
-            <h2 class="m-0">Statistics</h2>
-            <p id="updates-in">Refreshing...</p>
-            <div style="display: flex;">
-                <div class="background-2 m-1">
-                    <h4>Active Players</h4>
-                    <p id="realtime-player-count">...</p>
-                </div>
-                <div class="background-2 m-1">
-                    <h4>Unique Players</h4>
-                    <p id="unique-player-count">...</p>
-                </div>
-                <div class="background-2 m-1">
-                    <h4>Players in Games</h4>
-                    <p id="realtime-player-count-lobbys">...</p>
-                </div>
-            </div>
+    <div class="w-100"
+      style="display: flex; text-align: center; align-items: center;justify-content: center;flex-direction: column;">
+      <div>
+        <h2 class="m-0">Statistics</h2>
+        <p id="updates-in">Refreshing...</p>
+        <div style="display: flex;">
+          <div class="background-2 m-1">
+            <h4>Active Players</h4>
+            <p id="realtime-player-count">...</p>
+          </div>
+          <div class="background-2 m-1">
+            <h4>Unique Players</h4>
+            <p id="unique-player-count">...</p>
+          </div>
+          <div class="background-2 m-1">
+            <h4>Players in Games</h4>
+            <p id="realtime-player-count-lobbys">...</p>
+          </div>
         </div>
+      </div>
+      <div class="row d-flex justify-content-center mt-5 w-100">
+        <div class="col-sm-12 col-lg-8 col-xl-6">
+          <a type="button" class="nav-item-login dropdown-toggle mb-1" style="width: 18rem; height: 40px; color: #fff;"
+            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-calendar-week"></i> <span id="timeframe-change">Last 24 Hours</span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-right">
+            <a class="dropdown-item" href="javascript:getChartData(1);">Last Hour</a>
+            <a class="dropdown-item" href="javascript:getChartData(6);">Last 6 Hours</a>
+            <a class="dropdown-item" href="javascript:getChartData(24);">Last 24 Hours</a>
+            <a class="dropdown-item" href="javascript:getChartData(48);">Last 48 Hours</a>
+            <a class="dropdown-item" href="javascript:getChartData(168);">Last Week</a>
+            <a class="dropdown-item" href="javascript:getChartData(730);">Last Month</a>
+            <a class="dropdown-item" href="javascript:getChartData(8760);">Last Year</a>
+            <a class="dropdown-item" href="javascript:getChartData(876000);">All Time</a>
+          </div>
+          <div id="container"></div>
+        </div>
+      </div>
     </div>
-    
+
   </section>
 
   <div class="spacer layer2" style="z-index: 999 !important;"></div>
@@ -65,82 +88,10 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.js"></script>
-
-  <script>
-    (() => {
-    const hamburger = document.getElementById("hamburger");
-    const menu = document.getElementById("nav_overlay");
-    let open = false;
-
-    const change = () => {
-      if (!open) {
-        hamburger.classList.add("open");
-        menu.classList.add("d-flex");
-        document.body.classList.add("no-scroll");
-      } else {
-        hamburger.classList.remove("open");
-        menu.classList.remove("d-flex");
-        document.body.classList.remove("no-scroll");
-      }
-      open = !open;
-    };
-
-    hamburger.addEventListener("click", change);
-
-    const delay = ms => new Promise(res => setTimeout(res, ms));
-
-    function getLiveData() {
-        $.ajax({
-          url: "/api/v1/live",
-          method: "GET",
-          dataType: "json",
-          crossDomain: true,
-          contentType: "application/json; charset=utf-8",
-          cache: true,
-          timeout: 10000,
-          success: function (data) {
-            $("#realtime-player-count").text(`${data.players_online}`);
-            $("#realtime-player-count-lobbys").text(`${data.players_in_lobby}`);
-          },
-          error: function (jqXHR, textStatus, errorThrown) {
-          }
-        });
-        $.ajax({
-          url: "/api/v1/total_users_count",
-          method: "GET",
-          dataType: "json",
-          crossDomain: true,
-          contentType: "application/json; charset=utf-8",
-          cache: true,
-          timeout: 10000,
-          success: function (data) {
-            $("#unique-player-count").text(`${data.number}`);
-          },
-          error: function (jqXHR, textStatus, errorThrown) {
-          }
-        });
-      }
-
-      i = 10
-
-      function timer() {
-       setInterval(async function(){
-           if (i == 0) {
-               getLiveData();
-               $('#updates-in').text(`Refreshing...`);
-               i = 10;
-           } else {
-            $('#updates-in').text(`Updates in ${i} sec.`);
-           }
-           i--
-       }, 1000);
-      }
-      timer()
-      getLiveData()
-
-    })();
-
-  </script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/series-label.js"></script>
+  <script src="/public/js/all.js"></script>
 
 </body>
+
 </html>

@@ -1,6 +1,5 @@
 const monk = require('monk');
 const db = monk(process.env.MONGO_URL);
-
 class Calls {
     static async insertUser(steam_schema) {
         const collection = db.get('users')
@@ -54,6 +53,11 @@ class Calls {
         return(await collection.find())
     }
 
+    static async getAllRealtimeFiltered(type) {
+        const collection = db.get('realtime')
+        return(await collection.find({ "status": type }))
+    }
+
     static async getTotalUsersCount() {
         const collection = db.get('users')
         return(await collection.count())
@@ -66,6 +70,17 @@ class Calls {
             status: 0,
             insert_time: parseInt(Date.now() / 1000),
             latest_update: parseInt(Date.now() / 1000),
+        }));
+    }
+
+    static async saveMetrics(not_in_lobbys, in_lobbys, total_users, total_realtime) {
+        const collection = db.get('metrics')
+        return (collection.insert({
+            not_in_lobbys,
+            in_lobbys,
+            total_users,
+            total_realtime,
+            insert_time: parseInt(Date.now() / 1000),
         }));
     }
 
@@ -92,6 +107,18 @@ class Calls {
     static async removeRealtime(steamid) {
         const collection = db.get('realtime')
         return (await collection.findOneAndDelete({steamid: steamid}))
+    }
+
+    static async getHistroical(hours) {
+        const collection = db.get('metrics')
+        let all = await collection.find();
+        let all_data = []
+        for (let i = 0; i < all.length; i++) {
+            if (all[i].insert_time > (parseInt(Date.now() / 1000) - hours * 3600)) {
+                all_data.push(all[i])
+            }
+        }
+        return (await all_data);
     }
 }
 

@@ -25,6 +25,17 @@ class API extends Router {
             })
         })
 
+        this.router.get('/historical', async (req, res) => {
+            let hours = req.query.time;
+            if (!hours) {
+                hours = 1;
+            }
+            let amount = await Calls.getHistroical(hours);
+            res.status(200).json({
+                amount
+            })
+        })
+
         return this.router;
     }
 }
