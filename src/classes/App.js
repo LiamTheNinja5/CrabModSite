@@ -34,7 +34,7 @@ class App {
         logger.token('proxy_ip', function getId (req) {
             return req.headers["x-real-ip"]
           })
-        this.app.use(logger(':method > :url :status :res[content-length] | :response-timems | (:proxy_ip)'));
+        this.app.use(logger(':method > :url :status :res[content-length] | :response-time ms | (:proxy_ip)'));
         this.app.use(express.json());
         this.app.use(express.urlencoded({
             extended: true
