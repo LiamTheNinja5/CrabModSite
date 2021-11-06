@@ -34,7 +34,7 @@ class App {
         logger.token('userName', function (req, res) {
             return (req.session && req.session.passport && req.session.passport.user) ? `${req.session.passport.user.username}#${req.session.passport.user.discriminator}` : ''
         })
-        this.app.use(logger(':method :url :status :res[content-length] - :response-time ms - :userName'));
+        this.app.use(logger(':method :url :status :res[content-length] - :response-time ms - (:remote-addr)'));
         this.app.use(express.json());
         this.app.use(express.urlencoded({
             extended: true
