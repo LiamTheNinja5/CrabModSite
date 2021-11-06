@@ -21,4 +21,4 @@ jobs:
           git fetch --all
           git reset --hard origin/master
           npm install --save
-          pm2 restart CrabMod | Website
+          pm2 restart "CrabMod | Website"
