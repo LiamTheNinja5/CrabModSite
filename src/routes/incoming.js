@@ -9,7 +9,7 @@ class Incoming extends Router {
     }
 
     createRoute() {
-        this.router.get('/init', async (req, res) => {
+        this.router.post('/init', async (req, res) => {
             let steam_id = req.body.steamID;
             if (!steam_id || steam_id === '') return res.status(400).json({success:false, message:"Please provide a steam ID."})
             let steam_user = await axios.get(`https://api.steampowered.com/ISteamUser/GetPlayerSummaries/v2/?key=${process.env.STEAM_KEY}&format=json&steamids=${steam_id}`, {
@@ -31,7 +31,7 @@ class Incoming extends Router {
             }
         })
         
-        this.router.get('/heartbeat', async (req, res) => {
+        this.router.post('/heartbeat', async (req, res) => {
             let steam_id = req.body.steamID;
             if (!steam_id || steam_id === '') return res.status(400).json({success:false, message:"Please provide a steam ID."})
             if (!req.body.status) return res.status(400).json({success:false, message:"Please provide a status."})
