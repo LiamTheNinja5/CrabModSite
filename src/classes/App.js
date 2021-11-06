@@ -31,10 +31,10 @@ class App {
             res.setHeader('x-robots-tag', 'all')
             next();
           });
-        logger.token('userName', function (req, res) {
-            return (req.session && req.session.passport && req.session.passport.user) ? `${req.session.passport.user.username}#${req.session.passport.user.discriminator}` : ''
-        })
-        this.app.use(logger(':method :url :status :res[content-length] - :response-time ms - (:remote-addr)'));
+        logger.token('proxy_ip', function getId (req) {
+            return req.headers['x-forwarded-for']
+          })
+        this.app.use(logger(':method > :url :status :res[content-length] | :response-timems | (:proxy_ip)'));
         this.app.use(express.json());
         this.app.use(express.urlencoded({
             extended: true
