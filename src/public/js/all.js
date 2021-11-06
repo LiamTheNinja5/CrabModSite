@@ -198,8 +198,15 @@ $(function() {
     chart = (Highcharts.chart("container", chartConfig("Statistics")));
 });
 
+let isChartUpdatingLive = false
+
 function getChartData(time = "24") {
-    $('#timeframe-change').text(["Last Hour", "Last 6 Hours", "Last 24 Hours", "Last 48 Hours", "Last Week", "Last Month", "Last Year", "All Time"][[1,6,24,48,168,730,8760,876000].indexOf(time)]);
+    $('#timeframe-change').text(["Last 30 Minutes", "Last Hour", "Last 6 Hours", "Last 24 Hours", "Last 48 Hours", "Last Week", "Last Month", "Last Year", "All Time"][[0.30,1,6,24,48,168,730,8760,876000].indexOf(time)]);
+    // if (time == 0) {
+    //     isChartUpdatingLive = true;
+    //     updateChartLive()
+    // }
+    isChartUpdatingLive = false;
     $.ajax({
     url: "/api/v1/historical?time="+time,
     method: "GET",
@@ -218,6 +225,39 @@ function getChartData(time = "24") {
   });
 }
 getChartData()
+
+// async function updateChartLive() {
+//     chart
+//     $.ajax({
+//         url: "/api/v1/live",
+//         method: "GET",
+//         dataType: "json",
+//         crossDomain: true,
+//         contentType: "application/json; charset=utf-8",
+//         cache: true,
+//         timeout: 10000,
+//         success: function (data) {
+//             console.log(data)
+//             chart.series[1].addPoint(new Date(), 1);
+//             chart.series[2].addPoint(new Date(),data.players_in_lobby);
+//             chart.series[3].addPoint(new Date(),data.players_online-data.players_in_lobby);
+//         },
+//         error: function (jqXHR, textStatus, errorThrown) {}
+//     });
+//     $.ajax({
+//         url: "/api/v1/total_users_count",
+//         method: "GET",
+//         dataType: "json",
+//         crossDomain: true,
+//         contentType: "application/json; charset=utf-8",
+//         cache: true,
+//         timeout: 10000,
+//         success: function (data) {
+//             chart.series[0].addPoint(new Date(), data.number);
+//         },
+//         error: function (jqXHR, textStatus, errorThrown) {}
+//     });
+// }
 
 function getLiveData() {
   $.ajax({
@@ -250,6 +290,12 @@ function getLiveData() {
 }
 
 i = 10
+
+// setInterval(function() {
+//     if (isChartUpdatingLive) {
+//         updateChartLive()
+//     }
+// }, 5000);
 
 function timer() {
   setInterval(async function () {
